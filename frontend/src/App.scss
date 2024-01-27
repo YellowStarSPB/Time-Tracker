@@ -1,0 +1,16 @@
+.field {
+  display: flex;
+
+  &-input {
+    padding: 10px;
+    border: 1px solid var(--stroke-light-gray);
+    transition: border-radius .5s ease-in-out, border-color .5s ease-in-out, box-shadow .5s ease-in-out;
+
+    &:focus,
+    &:hover {
+      border-radius: 10px;
+      border-color: #99A1B1;
+      box-shadow: 2px 2px 15px 0px rgba(18, 52, 121, 0.12);
+    }
+  }
+}
