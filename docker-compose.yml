@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    restart: always
+    container_name: frontend
+    ports:
+      - '3000:3000'
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    depends_on:
+      mysql_test:
+        condition: service_healthy
+        restart: true
+  api:
+    build: ./server
+    restart: always
+    container_name: server
+    ports:
+      - '4000:4000'
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+  mysql_test:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password1
+      MYSQL_DATABASE: test
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - mysql_data:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8888:8080'
+volumes:
+  mysql_data:
