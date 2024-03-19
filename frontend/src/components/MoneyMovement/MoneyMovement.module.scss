@@ -1,0 +1,129 @@
+@import '../../scss/mixins';
+
+.moneyMove {
+    box-shadow: var(--shadow);
+    background: var(--white);
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 10px 25px 20px 33px;
+    display: flex;
+    flex-direction: column;
+    .moneyMoveTop {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+        .title {
+            @include title-info-card;
+            margin-bottom: 5px;
+        }
+        .calendar {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 120%;
+            color: var(--prime-gray);
+        }
+    }
+    .moneyMoveContent {
+        display: flex;
+        justify-content: space-between;
+        flex: 1;
+        .chart {
+            border-left: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: flex-end;
+            padding: 0 0 5px 20px;
+            width: 50%;
+            position: relative;
+            .chartPos {
+                position: absolute;
+                left: -15px;
+                font-weight: 300;
+                font-size: 10px;
+                line-height: 130%;
+                color: var(--prime-gray);
+                &.chart1 {
+                    top: 0;
+                }
+                &.chart2 {
+                    top: 50%;
+                }
+                &.chart3 {
+                    bottom: 0;
+                }
+            }
+            .incomeСhart,
+            .spendingСhart {
+                border-radius: 60px;
+                width: 20%;
+                height: 0%;
+                transition: height 1s ease-in-out;
+            }
+            .incomeСhart {
+                margin-right: 20px;
+                background-color: var(--light-green);
+            }
+            .spendingСhart {
+                background-color: var(--light-yellow);
+            }
+        }
+    }
+
+    .moneyInfo {
+        width: 30%;
+        .moneyInfoItem {
+            &.incomeMoney {
+                margin-bottom: 20px;
+                .moneyMark {
+                    background-color: var(--light-green);
+                    color: var(--green);
+                    &::before {
+                        background-color: var(--green);
+                    }
+                }
+                .moneyText {
+                    color: var(--green);
+                }
+            }
+            &.spendingMoney {
+                .moneyMark {
+                    background-color: var(--light-yellow);
+                    color: var(--orange);
+                    &::before {
+                        background-color: var(--orange);
+                    }
+                }
+                .moneyText {
+                    color: var(--orange);
+                }
+            }
+            .moneyMark {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 75px;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 130%;
+                border-radius: 30px;
+                padding: 2px;
+                margin-bottom: 10px;
+                &:before {
+                    content: '';
+                    display: block;
+                    margin-right: 5px;
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 50%;
+                }
+            }
+            .moneyText {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 120%;
+            }
+        }
+    }
+}

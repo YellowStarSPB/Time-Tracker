@@ -7,6 +7,8 @@ import Button from './components/UI/Button/Button';
 import LastEntries from './components/LastEntries/LastEntries';
 import CircularStructure from './components/CircularStructure/CircularStructure';
 import ShoppingList from './components/ShoppingList/ShoppingList';
+import MoneyMovement from './components/MoneyMovement/MoneyMovement';
+import BudgetLimits from './components/BudgetLimits/BudgetLimits';
 
 function App() {
     return (
@@ -33,6 +35,8 @@ function App() {
                     <LastEntries />
                     <CircularStructure />
                     <ShoppingList />
+                    <MoneyMovement />
+                    <BudgetLimits />
                 </div>
             </div>
         </div>

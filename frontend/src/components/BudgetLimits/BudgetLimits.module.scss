@@ -1,0 +1,74 @@
+@import '../../scss/mixins';
+
+.budgetLimits {
+    padding: 10px 20px 20px 10px;
+    position: relative;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    .title {
+        @include title-info-card;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .editButton {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+        background: var(--light-gray);
+        background: url(../../assets/img/edit-button.svg) center/100% no-repeat;
+        border-radius: 50%;
+    }
+    .budgetList {
+        .item {
+            padding: 13px 10px 10px 4px;
+            margin-bottom: 5px;
+            .itemTop {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 5px;
+            }
+            .itemTitle {
+                color: var(--bg-medium-black);
+                font-weight: 600;
+                line-height: 130%;
+            }
+            .itemMoney {
+                color: var(--black);
+                font-weight: 500;
+                line-height: 130%;
+            }
+            .progressBar {
+                width: 100%;
+                height: 5px;
+                border-radius: 60px;
+                margin-bottom: 5px;
+                .progressLine {
+                    height: 100%;
+                    border-radius: 60px;
+                    transition: width 1s ease-in-out;
+                }
+            }
+            .bottom {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .moneySpent {
+                    color: var(--black);
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 130%;
+                }
+                .daysLeft {
+                    color: var(--stroke-gray);
+                    font-size: 10px;
+                    font-weight: 300;
+                    line-height: 130%;
+                }
+            }
+        }
+    }
+}

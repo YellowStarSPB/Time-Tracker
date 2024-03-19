@@ -1,4 +1,4 @@
-import styles from './Button.module.scss';
+// import styles from './Button.module.scss';
 
 function Button() {
     return <button className="primary-button">Добавить запись</button>;
