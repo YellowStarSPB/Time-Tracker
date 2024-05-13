@@ -1,0 +1,29 @@
+@mixin title-level-1 {
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 110%;
+}
+
+@mixin title-level-2 {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+}
+
+@mixin title-level-3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+}
+
+@mixin title-level-4 {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 130%;
+}
+
+@mixin sidebar-menu {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+}

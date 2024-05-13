@@ -1,0 +1,101 @@
+@import '../../scss/mixins';
+
+.lastEntries {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 20px 27px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    background: var(--white);
+    grid-row: 1 / span 2;
+    .title {
+        @include title-info-card;
+        margin-bottom: 30px;
+        margin: 0 auto 30px auto;
+    }
+    .dateBox {
+        width: 100%;
+        margin-bottom: 25px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .date {
+        display: block;
+        color: var(--prime-gray);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 130%;
+        margin-bottom: 10px;
+    }
+    .items {
+    }
+    .item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        width: calc(100% + 20px);
+        margin-left: -10px;
+        cursor: pointer;
+        transition: border-radius 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+            padding 0.3s ease-in-out, transform 0.3s ease-in-out;
+        will-change: box-shadow;
+        padding: 5px 10px;
+        border-radius: 10px;
+        &:hover {
+            box-shadow: 2px 2px 15px 0px rgba(18, 52, 121, 0.12);
+            .editButton {
+                opacity: 1;
+                visibility: visible;
+                width: 25px;
+                margin-left: 5px;
+            }
+        }
+        .itemImg {
+            width: 25px;
+            height: 25px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .itemInfo {
+        }
+        .itemTitle {
+            color: var(--black);
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 120%;
+            max-width: 135px;
+        }
+        .itemSubtitle {
+            color: var(--prime-gray);
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 130%;
+        }
+        .itemMoneyInfo {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 130%;
+            margin-left: auto;
+            white-space: nowrap;
+            &.expenses {
+                color: var(--red);
+            }
+            &.income {
+                color: var(--green);
+            }
+        }
+        .editButton {
+            width: 0px;
+            height: 25px;
+            margin-left: 0;
+            opacity: 0;
+            visibility: hidden;
+            background: url(../../assets/img/edit-button.svg) center/100% no-repeat;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out,
+                width 0.3s ease-in-out, matgin-left 0.3s ease-in-out;
+        }
+    }
+}

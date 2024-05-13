@@ -1,0 +1,36 @@
+@mixin main-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 17px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgb(127, 108, 254), rgb(108, 210, 254) 100%);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 500;
+    background-size: 200%;
+    transition: background 0.3s ease-in-out;
+    background-repeat: no-repeat;
+    &:hover {
+        background-position: 100%;
+    }
+}
+@mixin button-with-border {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 17px;
+    border-radius: 10px;
+    background: var(--white);
+    border: 2px solid var(--accent-lavender);
+    color: var(--accent-lavender);
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out, border 0.3s ease-in-out,
+        background 0.3s ease-in-out;
+    &:hover {
+        color: var(--accent-lavender-dark);
+        border-color: var(--accent-lavender-dark);
+        background: rgba(127, 108, 254, 0.2);
+    }
+}
