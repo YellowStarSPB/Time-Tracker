@@ -9,37 +9,44 @@ import CircularStructure from './components/CircularStructure/CircularStructure'
 import ShoppingList from './components/ShoppingList/ShoppingList';
 import MoneyMovement from './components/MoneyMovement/MoneyMovement';
 import BudgetLimits from './components/BudgetLimits/BudgetLimits';
+import { Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage/LoginPage';
+import HomePage from './pages/HomePage/HomePage';
 
 function App() {
     return (
-        <div className="container">
-            <SideBar />
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+        </Routes>
+        // <div className="container">
+        //     <SideBar />
 
-            <div className="right-side">
-                <div className="right-side__top">
-                    <div className="right-side__top-content">
-                        <MyCards />
-                        <div className="right-side__top-account">
-                            <ThemeButton />
-                            <MyAccount />
-                        </div>
-                    </div>
+        //     <div className="right-side">
+        //         <div className="right-side__top">
+        //             <div className="right-side__top-content">
+        //                 <MyCards />
+        //                 <div className="right-side__top-account">
+        //                     <ThemeButton />
+        //                     <MyAccount />
+        //                 </div>
+        //             </div>
 
-                    <div className="right-side__top-management">
-                        <Calendar />
-                        <Button />
-                    </div>
-                </div>
+        //             <div className="right-side__top-management">
+        //                 <Calendar />
+        //                 <Button />
+        //             </div>
+        //         </div>
 
-                <div className="right-side__content-layout">
-                    <LastEntries />
-                    <CircularStructure />
-                    <ShoppingList />
-                    <MoneyMovement />
-                    <BudgetLimits />
-                </div>
-            </div>
-        </div>
+        //         <div className="right-side__content-layout">
+        //             <LastEntries />
+        //             <CircularStructure />
+        //             <ShoppingList />
+        //             <MoneyMovement />
+        //             <BudgetLimits />
+        //         </div>
+        //     </div>
+        // </div>
     );
 }
 
