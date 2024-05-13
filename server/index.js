@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('./models');
-const { createUser } = require('./controllers/usersControllers');
+const { createUser, loginUser, getMe } = require('./controllers/usersControllers');
+const { checkAuth } = require('./utils/checkAuth');
 
 const PORT = 4444;
 
@@ -20,9 +21,9 @@ app.use(express.json());
 app.get('/', async (req, res) => {
     res.send('Welcome to my api server');
 });
-
+app.get('/api/auth', checkAuth, getMe);
 app.post('/api/registration', createUser);
-
+app.get('/api/login', loginUser);
 
 app.listen(PORT, (err) => {
     if (err) {
