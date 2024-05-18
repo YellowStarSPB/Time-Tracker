@@ -4,12 +4,12 @@ module.exports = (sequelize) => {
     return sequelize.define(
         'Users',
         {
-            id: {
-                type: Sequelize.SMALLINT,
-                primaryKey: true,
-                unique: true,
-                autoIncrement: true
-            },
+            // id: {
+            //     type: Sequelize.SMALLINT,
+            //     primaryKey: true,
+            //     unique: true,
+            //     autoIncrement: true
+            // },
             login: {
                 type: Sequelize.STRING,
                 allowNull: false,
