@@ -19,7 +19,7 @@ exports.createUser = async (req, res) => {
 
             if (findUser) {
                 return res.status(400).json({
-                    status: 'login-error',
+                    status: 'error',
                     message: 'Пользователь с таким логином уже существует',
                 });
             } else if (!findUser) {
@@ -63,6 +63,7 @@ exports.createUser = async (req, res) => {
 //Login user
 exports.loginUser = async (req, res) => {
     const { login, password } = await req.body;
+    console.log(req.body, login)
     try {
         if (login && password) {
             const user = await Users.findOne({ where: { login: req.body.login } });

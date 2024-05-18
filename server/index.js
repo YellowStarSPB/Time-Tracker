@@ -14,8 +14,7 @@ const corsOptions = {
     origin: `http://localhost:${PORT}`,
 };
 
-app.use(cors(corsOptions));
-
+app.use(cors(corsOptions.origin));
 app.use(express.json());
 
 app.get('/', async (req, res) => {
@@ -23,7 +22,7 @@ app.get('/', async (req, res) => {
 });
 app.get('/api/auth', checkAuth, getMe);
 app.post('/api/registration', createUser);
-app.get('/api/login', loginUser);
+app.post('/api/login', loginUser);
 
 app.listen(PORT, (err) => {
     if (err) {
