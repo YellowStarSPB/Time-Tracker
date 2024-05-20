@@ -1,0 +1,6 @@
+@import '../../../app/scss/UIKit/buttons';
+
+
+.button {
+    @include main-button;
+}

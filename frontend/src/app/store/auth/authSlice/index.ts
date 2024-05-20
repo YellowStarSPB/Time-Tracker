@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction,AsyncThunk } from '@reduxjs/toolkit';
+import {
+    createAsyncThunk,
+    createSlice,
+    PayloadAction,
+    AsyncThunk,
+} from '@reduxjs/toolkit';
 
 type UserType = {
     id: number;
@@ -25,20 +30,22 @@ const initialState: InitialStateType = {
 };
 
 type DataType = {
-    endPoint:string;
-    dataUser: string
-}
+    endPoint: string;
+    dataUser: string;
+};
 
-
-const loginUser = createAsyncThunk('@@login', async ({endPoint, dataUser}:DataType) => {
-    try {
-        const res = await fetch(`http://localhost:4444/api/${endPoint}`);
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-});
+const loginUser = createAsyncThunk(
+    '@@login',
+    async ({ endPoint, dataUser }: DataType) => {
+        try {
+            const res = await fetch(`http://localhost:4444/api/${endPoint}`);
+            const data = await res.json();
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+);
 
 const authSlice = createSlice({
     name: '@@auth',
@@ -52,8 +59,12 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loginUser.fulfilled, (state, action) => {
-                console.log(state)
+                console.log(state);
             })
+            .addMatcher(
+                (action) => action.type.endsWith('/fulfilled'),
+                (state, action) => {},
+            );
     },
 });
 
