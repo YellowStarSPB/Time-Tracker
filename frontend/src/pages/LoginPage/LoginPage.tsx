@@ -3,28 +3,29 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 import styles from './LoginPage.module.scss';
 import Input from '../../shared/UIKit/Input/Input';
 import useInput from '../../shared/hooks/inputsHooks/useInput';
-import { useNavigate } from 'react-router-dom';
-type responseDataType = {
-    message: string;
-    status: string;
-    userData?: {
-        id: number;
-        login: string;
-        token: string;
-    };
-};
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/store/store-hooks';
+import { fetchUser } from '../../app/store/auth/authSlice';
+
 
 function LoginPage() {
-    const [isEntryForm, setIsEntryForm] = useState<boolean>(true); //if true - entry form
-    //API URL
-    const [apiUrl, setApiUrl] = useState<string>('');
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [responseData, setResponseData] = useState<responseDataType | undefined>(
-        undefined,
-    );
-    const [showMessage, setShowMessage] = useState<boolean>(false);
+    const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    //откуда был редирект
+    const fromPage = location.state?.from?.pathname || '/';
+    //токен юзера
+    const token = useAppSelector((state) => state.auth.user.token);
+    //статус лоадера
+    const isLoading = useAppSelector((state) => state.auth.isLoading);
+    const { status, message } = useAppSelector((state) => state.auth);
+    //стейт переключения формы между "войти" и "зарегистрироваться"
+    const [isEntryForm, setIsEntryForm] = useState<boolean>(true);
+    //стейт ручки API
+    const [apiUrl, setApiUrl] = useState<string>('');
 
+    const [showMessage, setShowMessage] = useState<boolean>(false);
+    //ссылка на ноду формы
     const formRef = useRef(null) as RefObject<HTMLFormElement> | null;
 
     const login = useInput('', {
@@ -44,12 +45,16 @@ function LoginPage() {
             setIsEntryForm(true);
         }
     };
-    const handleShowMessage = () => {
-        setShowMessage(false);
+    const handleShowMessage = (value: boolean) => {
+        setShowMessage(value);
     };
 
-    const handleSubmitForm = async () => {
-        //визуализируем ошибку или валидность
+    const handleSubmitForm = () => {
+        /* 
+        визуализируем ошибку или валидность, если нажали на кнопку
+        без взаимодействия с формой
+        */
+        // handleShowMessage(false);
         if (!login.isDirty || !password.isDirty) {
             login.onBlur();
             password.onBlur();
@@ -68,40 +73,25 @@ function LoginPage() {
             }
             //если поля формы валидны - отправляем запрос
             if (isValidForm) {
-                setIsLoading(true);
-                try {
-                    const res = await fetch(`http://localhost:4444/${apiUrl}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
+                dispatch(
+                    fetchUser({
+                        endPoint: apiUrl,
+                        dataUser: JSON.stringify({
                             login: login.value,
                             password: password.value,
                         }),
-                    });
-                    //парсим данные
-                    const dataJson: responseDataType = await res.json();
-
-                    setResponseData(dataJson);
-                    setShowMessage(true);
-                    setIsLoading(false);
-                    //перекидываем пользователя на главный экран приложения и записывам в хранилище данные
-                    if (dataJson.status === 'success') {
-                        localStorage.setItem('user', JSON.stringify(dataJson.userData));
-                        navigate('/', { replace: true });
-                    }
-                } catch (error) {
-                    setResponseData({
-                        status: 'error',
-                        message: 'Что-то пошло не так',
-                    });
-                    setShowMessage(true);
-                    setIsLoading(false);
-                }
+                    }),
+                )
+                    .then((res) => {
+                        if (res.type.includes('fullfiled')) {
+                            navigate(fromPage, { replace: false });
+                        }
+                    })
+                    .then(() => handleShowMessage(true));
             }
         }
     };
+
     //задаем значение для url запроса
     useEffect(() => {
         if (isEntryForm) {
@@ -110,6 +100,11 @@ function LoginPage() {
             setApiUrl('api/registration');
         }
     }, [isEntryForm]);
+
+    //fallback if user set in url path /login
+    if (token) {
+        return <Navigate to={fromPage} />;
+    }
 
     return (
         <div className={styles.loginPage}>
@@ -144,11 +139,6 @@ function LoginPage() {
                             customStyles={styles.formInput}
                         />
                     </div>
-                    {/* {isEntryForm && (
-                        <button className={styles.recoverPassword} type="button">
-                            Восстановить пароль
-                        </button>
-                    )} */}
                 </form>
                 <button onClick={handleSubmitForm} className={styles.entryButton}>
                     {isEntryForm ? 'Войти' : 'Зарегистрироваться'}
@@ -167,14 +157,12 @@ function LoginPage() {
             </div>
             <div
                 className={`${styles.message} ${showMessage ? styles.active : ''} ${
-                    responseData?.status === 'error'
-                        ? styles.errorMessage
-                        : styles.successMessage
-                }`}
+                    status === 'error' ? styles.errorMessage : ''
+                } ${status === 'success' ? styles.successMessage : ''}`}
             >
-                <p className={styles.messageText}>{responseData?.message}</p>
+                <p className={styles.messageText}>{message}</p>
                 <button
-                    onClick={handleShowMessage}
+                    onClick={() => handleShowMessage(false)}
                     className={styles.closeMessage}
                 ></button>
             </div>

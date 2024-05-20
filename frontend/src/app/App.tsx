@@ -13,14 +13,26 @@ import { Route, Routes } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import HomePage from '../pages/HomePage/HomePage';
 
+import RequiredAuth from '../shared/hocs/RequiredAuth';
 
 function App() {
-
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route
+                path="/*"
+                element={
+                    <RequiredAuth>
+                        <Routes>
+                            <Route index element={<HomePage />} />
+                            <Route path="test" element={<div>test</div>} />
+                        </Routes>
+                    </RequiredAuth>
+                }
+            />
+
             <Route path="/login" element={<LoginPage />} />
         </Routes>
+        
         // <div className="container">
         //     <SideBar />
 
