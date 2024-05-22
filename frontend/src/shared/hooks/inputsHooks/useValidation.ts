@@ -50,18 +50,10 @@ const useValidation = (value: string, validations: IValidations): IUseValidation
                         ? setPasswordError(false)
                         : setPasswordError(true);
                     break;
-                // case 'isComment':
-                //     if (value.length !== 0) {
-                //         patterns.msg.test(value)
-                //             ? setCommentError(false) && setEmpty(false)
-                //             : setCommentError(true) && setEmpty(true);
-                //     } else {
-                //         setEmpty(false);
-                //     }
-                //     break;
             }
         }
     }, [value, validations]);
+
     useEffect(() => {
         if (
             isEmpty ||
@@ -70,13 +62,13 @@ const useValidation = (value: string, validations: IValidations): IUseValidation
             emailError ||
             phoneError ||
             passwordError
-            // commentError
         ) {
             setInputValid(false);
         } else {
             setInputValid(true);
         }
     }, [isEmpty, maxLengthError, minLengthError, emailError, phoneError, passwordError]);
+
 
     return {
         isEmpty,

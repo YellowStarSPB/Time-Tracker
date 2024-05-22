@@ -7,7 +7,7 @@ const useInput = (initialValue: string, validations: IValidations): IInput => {
     const [value, setValue] = useState(initialValue);
     const [isDirty, setIsDirty] = useState(false);
     const valid = useValidation(value, validations);
-
+    console.log(value,'value', valid, "valid")
     const onChange = (e: React.FormEvent<HTMLInputElement>): void => {
         const eventTarget = e.target as HTMLInputElement;
         if (eventTarget.name === 'password'){
