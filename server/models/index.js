@@ -12,11 +12,13 @@ const sequelize = new Sequelize(
     { freezeTableName: true },
 );
 
-const Users = require('./userModel.js')(sequelize)
+const Users = require('./userModel.js')(sequelize);
+const ShoppingList = require('./shoppingListModel.js')(sequelize);
 
+ShoppingList.belongsTo(Users, { foreignKey: 'userID', targetKey: 'id' });
 
 module.exports = {
     sequelize,
-    Users
+    Users,
+    ShoppingList,
 };
-
