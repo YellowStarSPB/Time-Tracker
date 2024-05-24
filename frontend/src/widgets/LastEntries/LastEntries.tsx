@@ -23,7 +23,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -1 500,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
 
                         <div className={styles.item}>
@@ -35,7 +38,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -764,63 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                     </div>
                 </div>
@@ -54,7 +60,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -100000,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                         <div className={styles.item}>
                             <img className={styles.itemImg} src={Meat} alt="icon" />
@@ -65,7 +74,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -100000,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                         <div className={styles.item}>
                             <img className={styles.itemImg} src={Meat} alt="icon" />
@@ -76,7 +88,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -100000,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                         <div className={styles.item}>
                             <img className={styles.itemImg} src={Meat} alt="icon" />
@@ -87,7 +102,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -100000,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                         <div className={styles.item}>
                             <img className={styles.itemImg} src={Meat} alt="icon" />
@@ -98,7 +116,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -100000,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                         <div className={styles.item}>
                             <img className={styles.itemImg} src={Meat} alt="icon" />
@@ -109,7 +130,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -100000,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                         <div className={styles.item}>
                             <img className={styles.itemImg} src={Meat} alt="icon" />
@@ -120,7 +144,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -100000,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                         <div className={styles.item}>
                             <img className={styles.itemImg} src={Meat} alt="icon" />
@@ -131,7 +158,10 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.expenses}`}>
                                 -100000,00 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
 
                         <div className={styles.item}>
@@ -143,12 +173,15 @@ function LastEntries() {
                             <p className={`${styles.itemMoneyInfo} ${styles.income}`}>
                                 +764,63 ₽
                             </p>
-                            <EditButton withoutWidth={true} customStyles={styles.editButton} />
+                            <EditButton
+                                withoutWidth={true}
+                                customStyles={styles.editButton}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <RoundButton customStyles={styles.showMoreEntries}>Все записи</RoundButton>
         </div>
     );

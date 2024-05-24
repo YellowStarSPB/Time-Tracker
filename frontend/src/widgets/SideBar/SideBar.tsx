@@ -1,25 +1,30 @@
+import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
+import { useAppDispatch } from '../../app/store/store-hooks';
+import { totalLogOut } from '../../app/store/auth/authSlice';
 
 const navMenu = [
     {
         title: 'Главная',
-        url: '#',
+        url: '/',
     },
     {
         title: 'Записи',
-        url: '#',
+        url: 'last-entries',
     },
     {
         title: 'Аналитика',
-        url: '#',
+        url: 'tt',
     },
     {
         title: 'Настройки',
-        url: '#',
+        url: 'ttt',
     },
 ];
 
 function Sidebar() {
+    const dispatch = useAppDispatch();
+
     return (
         <div className={styles.sidebar}>
             <div className={styles.balance}>
@@ -28,18 +33,22 @@ function Sidebar() {
             </div>
             <nav className={styles.navigate}>
                 {navMenu.map(({ title, url }) => (
-                    <a
+                    <NavLink
                         key={title}
-                        href={url}
-                        className={`${styles.navigateLink} ${
-                            title === 'Главная' ? styles.active : null
-                        }`}
+                        to={url}
+                        className={({ isActive }) =>
+                            isActive
+                                ? `${styles.navigateLink} ${styles.active}`
+                                : styles.navigateLink
+                        }
                     >
                         {title}
-                    </a>
+                    </NavLink>
                 ))}
             </nav>
-            <button className={styles.logOutBtn}>Выйти</button>
+            <button onClick={() => dispatch(totalLogOut())} className={styles.logOutBtn}>
+                Выйти
+            </button>
         </div>
     );
 }
