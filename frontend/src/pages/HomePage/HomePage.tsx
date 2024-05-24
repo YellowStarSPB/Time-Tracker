@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import MainButton from '../../shared/UIKit/MainButton/MainButton';
+import Skeleton from '../../shared/UIKit/Skeleton/Skeleton';
 import BudgetLimits from '../../widgets/BudgetLimits/BudgetLimits';
 import Calendar from '../../widgets/Calendar/Calendar';
 import LastEntries from '../../widgets/LastEntries/LastEntries';
@@ -8,6 +10,12 @@ import Targets from '../../widgets/Targets/Targets';
 import styles from './HomePage.module.scss';
 
 function HomePage() {
+    const [loading, setLoading] = useState(true);
+    useState(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    }, []);
     return (
         <div className={`container ${styles.homePage}`}>
             <div className={styles.homePageTop}>
@@ -17,45 +25,37 @@ function HomePage() {
             <div className={styles.homePageContent}>
                 <div className={styles.mainBlocks}>
                     <div className={styles.lastEntriesSection}>
-                        <LastEntries />
+                        {loading ? (
+                            <Skeleton customStyles={styles.blocksSkeleton} />
+                        ) : (
+                            <LastEntries />
+                        )}
                     </div>
                     <div className={styles.shopListSection}>
-                        <ShoppingList />
+                        {loading ? (
+                            <Skeleton customStyles={styles.blocksSkeleton} />
+                        ) : (
+                            <ShoppingList />
+                        )}
                     </div>
                 </div>
                 <div className={styles.widgets}>
                     <div className={styles.budgetLimitsSection}>
-                        <BudgetLimits />
+                        {loading ? (
+                            <Skeleton customStyles={styles.blocksSkeleton} />
+                        ) : (
+                            <BudgetLimits />
+                        )}
                     </div>
                     <div className={styles.tragetsSection}>
-                        <Targets />
+                        {loading ? (
+                            <Skeleton customStyles={styles.blocksSkeleton} />
+                        ) : (
+                            <Targets />
+                        )}
                     </div>
                 </div>
             </div>
-            {/* <SideBar /> */}
-            {/* <div className={styles.rightSide}>
-                <div className={styles.rightSideTop}>
-                    <div className={styles.rightSideInfo}>
-                        <MyCards />
-                        <div className={styles.rightSideAccount}>
-                            <ThemeButton />
-                            <MyAccount />
-                        </div>
-                    </div>
-                    <div className={styles.rightSideManagement}>
-                        <Calendar />
-                        <Button />
-                    </div>
-                </div>
-
-                <div className={styles.rightSideContentLayout}>
-                    <LastEntries />
-                    <CircularStructure/>
-                    <ShoppingList />
-                    <MoneyMovement />
-                    <BudgetLimits />
-                </div>
-            </div> */}
         </div>
     );
 }
