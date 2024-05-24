@@ -1,4 +1,4 @@
-import styles from './SideBar.module.scss';
+import styles from './Sidebar.module.scss';
 
 const navMenu = [
     {
@@ -19,9 +19,9 @@ const navMenu = [
     },
 ];
 
-function SideBar() {
+function Sidebar() {
     return (
-        <div className={styles.sideBar}>
+        <div className={styles.sidebar}>
             <div className={styles.balance}>
                 <span className={styles.balanceText}>Баланс</span>
                 <p className={styles.balanceCount}>78 060,00 ₽</p>
@@ -44,4 +44,4 @@ function SideBar() {
     );
 }
 
-export default SideBar;
+export default Sidebar;

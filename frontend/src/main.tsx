@@ -7,7 +7,7 @@ import App from './app/App.tsx';
 import store from './app/store/store.ts';
 import './app/App.scss';
 
-ReactDOM.createRoot(document.getElementById('app')!).render(
+ReactDOM.createRoot(document.getElementById('app-container')!).render(
     <Provider store={store}>
         <BrowserRouter>
             {/* <React.StrictMode> */}

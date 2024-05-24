@@ -14,6 +14,10 @@ import LoginPage from '../pages/LoginPage/LoginPage';
 import HomePage from '../pages/HomePage/HomePage';
 
 import RequiredAuth from '../shared/hocs/RequiredAuth';
+import SideBar from '../widgets/Sidebar/Sidebar';
+import MyCards from '../widgets/MyCards/MyCards';
+import MyAccount from '../widgets/MyAccount/MyAccount';
+import ThemeButton from '../widgets/ThemeToggle/ThemeToggle';
 
 function App() {
     return (
@@ -22,17 +26,27 @@ function App() {
                 path="/*"
                 element={
                     <RequiredAuth>
-                        <Routes>
-                            <Route index element={<HomePage />} />
-                            <Route path="test" element={<div>test</div>} />
-                        </Routes>
+                        <SideBar />
+                        <div className="content-side">
+                            <div className="header">
+                                <MyCards />
+                                <div className="header__right">
+                                    <ThemeButton />
+                                    <MyAccount />
+                                </div>
+                            </div>
+                            <Routes>
+                                <Route index element={<HomePage />} />
+                                <Route path="test" element={<div>test</div>} />
+                            </Routes>
+                        </div>
                     </RequiredAuth>
                 }
             />
 
             <Route path="/login" element={<LoginPage />} />
         </Routes>
-        
+
         // <div className="container">
         //     <SideBar />
 

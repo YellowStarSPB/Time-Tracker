@@ -1,21 +1,39 @@
-import Button from '../../shared/UIKit/Button/Button';
-import ThemeButton from '../../shared/UIKit/ThemeButton/ThemeButton';
+import MainButton from '../../shared/UIKit/MainButton/MainButton';
 import BudgetLimits from '../../widgets/BudgetLimits/BudgetLimits';
 import Calendar from '../../widgets/Calendar/Calendar';
-// import CircularStructure from '../../widgets/CircularStructure/CircularStructure';
 import LastEntries from '../../widgets/LastEntries/LastEntries';
-import MoneyMovement from '../../widgets/MoneyMovement/MoneyMovement';
-import MyAccount from '../../widgets/MyAccount/MyAccount';
-import MyCards from '../../widgets/MyCards/MyCards';
 import ShoppingList from '../../widgets/ShoppingList/ShoppingList';
-import SideBar from '../../widgets/SideBar/SideBar';
+import Targets from '../../widgets/Targets/Targets';
+
 import styles from './HomePage.module.scss';
 
 function HomePage() {
     return (
-        <div className={styles.container}>
-            <SideBar />
-            <div className={styles.rightSide}>
+        <div className={`container ${styles.homePage}`}>
+            <div className={styles.homePageTop}>
+                <Calendar />
+                <MainButton customStyles={styles.addButton}>Добавить запись</MainButton>
+            </div>
+            <div className={styles.homePageContent}>
+                <div className={styles.mainBlocks}>
+                    <div className={styles.lastEntriesSection}>
+                        <LastEntries />
+                    </div>
+                    <div className={styles.shopListSection}>
+                        <ShoppingList />
+                    </div>
+                </div>
+                <div className={styles.widgets}>
+                    <div className={styles.budgetLimitsSection}>
+                        <BudgetLimits />
+                    </div>
+                    <div className={styles.tragetsSection}>
+                        <Targets />
+                    </div>
+                </div>
+            </div>
+            {/* <SideBar /> */}
+            {/* <div className={styles.rightSide}>
                 <div className={styles.rightSideTop}>
                     <div className={styles.rightSideInfo}>
                         <MyCards />
@@ -32,12 +50,12 @@ function HomePage() {
 
                 <div className={styles.rightSideContentLayout}>
                     <LastEntries />
-                    {/* <CircularStructure/> */}
+                    <CircularStructure/>
                     <ShoppingList />
                     <MoneyMovement />
                     <BudgetLimits />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

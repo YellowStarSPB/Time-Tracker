@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 17px;
+    padding: 17px 0;
     border-radius: 10px;
     background: linear-gradient(90deg, rgb(127, 108, 254), rgb(108, 210, 254) 100%);
     color: var(--white);
@@ -19,7 +19,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 17px;
+    // padding: 17px;
+    padding: 17px 0;
     border-radius: 10px;
     background: var(--white);
     border: 2px solid var(--accent-lavender);
@@ -32,5 +33,21 @@
         color: var(--accent-lavender-dark);
         border-color: var(--accent-lavender-dark);
         background: rgba(127, 108, 254, 0.2);
+    }
+}
+@mixin round-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    border: 1px solid var(--accent-lavender);
+    border-radius: 60px;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--accent-lavender);
+    transition: color 0.3s ease-in-out, border 0.3s ease-in-out;
+    &:hover {
+        color: var(--border-lavender);
+        border-color: var(--border-lavender);
     }
 }

@@ -11,8 +11,7 @@
         display: grid;
         grid-template-rows: 235px 1fr;
         row-gap: 20px;
-        .rightSideTop{
-
+        .rightSideTop {
         }
         .rightSideInfo {
             display: flex;
@@ -39,5 +38,51 @@
         grid-template-rows: repeat(2, minmax(100px, 50%));
         row-gap: 20px;
         column-gap: 20px;
+    }
+}
+
+.homePage {
+    display: flex;
+    flex-direction: column;
+    .homePageTop {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        .addButton {
+            width: 160px;
+            height: 50px;
+            margin: -15px 0 0 auto;
+        }
+    }
+    .homePageContent {
+        display: flex;
+        justify-content: space-between;
+        height: calc((100% - 65px) - 20px);
+        // .lastEntriesSection,
+        // .shopListSection,
+        // .budgetLimitsSection {
+        //     width: calc((100% / 3) - (40px / 3));
+        // }
+        .mainBlocks {
+            display: flex;
+            justify-content: space-between;
+            width: calc(70% - 10px);
+            .lastEntriesSection,
+            .shopListSection {
+                width: calc((100% / 2) - 10px);
+            }
+        }
+        .widgets {
+            width: calc(30% - 10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .budgetLimitsSection {
+                height: calc(50% - 10px);
+            }
+            .tragetsSection {
+                height: calc(50% - 10px);
+            }
+        }
     }
 }
