@@ -30,13 +30,13 @@
     }
     .lightMode {
         &::before {
-            background: url(../../../assets/img/sun.svg) center/25px no-repeat;
+            background: url(../../assets/img/sun.svg) center/25px no-repeat;
         }
     }
 
     .darkMode {
         &::before {
-            background: url(../../../assets/img/moon.svg) center/25px no-repeat;
+            background: url(../../assets/img/moon.svg) center/25px no-repeat;
         }
     }
 }

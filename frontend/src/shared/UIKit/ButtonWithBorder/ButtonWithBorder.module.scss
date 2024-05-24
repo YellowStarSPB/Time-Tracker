@@ -1,0 +1,5 @@
+@import '../../../app/scss/UIKit/buttons';
+
+.buttonWithBorder {
+    @include button-with-border;
+}

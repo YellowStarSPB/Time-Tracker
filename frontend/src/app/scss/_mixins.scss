@@ -1,6 +1,18 @@
-@mixin title-info-card {
-    color: var(--black);
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 120%;
+
+
+@mixin scrollbar {
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background: var(--light-gray);
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--prime-gray);
+        border-radius: 3px;
+    }
 }

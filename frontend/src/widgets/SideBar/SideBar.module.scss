@@ -1,12 +1,17 @@
-.sideBar {
-    padding: 70px 0 50px 20px;
+.sidebar {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    max-width: 200px;
     height: 100%;
+    max-height: calc(100vh - 35px);
+    padding: 70px 0 50px 20px;
     border-radius: 0px 0px 20px 20px;
     box-shadow: var(--shadow);
     background: var(--white);
-    display: flex;
-    flex-direction: column;
+
+    // position: sticky;
+    // top: 0;
     .balance {
         margin-bottom: 90px;
     }
