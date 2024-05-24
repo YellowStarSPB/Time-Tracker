@@ -9,7 +9,6 @@ import MyAccount from '../widgets/MyAccount/MyAccount';
 import ThemeButton from '../widgets/ThemeToggle/ThemeToggle';
 import Sidebar from '../widgets/Sidebar/Sidebar';
 
-
 function App() {
     return (
         <Routes>
@@ -28,7 +27,10 @@ function App() {
                             </div>
                             <Routes>
                                 <Route index element={<HomePage />} />
-                                <Route path="last-entries" element={<div>last-entries</div>} />
+                                <Route
+                                    path="last-entries"
+                                    element={<div>last-entries</div>}
+                                />
                             </Routes>
                         </div>
                     </RequiredAuth>
