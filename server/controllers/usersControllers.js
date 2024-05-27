@@ -43,7 +43,7 @@ exports.createUser = async (req, res) => {
                 res.status(200).json({
                     status: 'success',
                     message: 'Регистрация прошла успешно',
-                    userData: { id: user.id, login: user.login, token },
+                    token,
                 });
             }
         } else {
@@ -55,7 +55,7 @@ exports.createUser = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             status: 'error',
-            message: error,
+            message: 'Что-то пошло не так',
         });
     }
 };
@@ -63,7 +63,7 @@ exports.createUser = async (req, res) => {
 //Login user
 exports.loginUser = async (req, res) => {
     const { login, password } = await req.body;
-    console.log(req.body, login)
+    
     try {
         if (login && password) {
             const user = await Users.findOne({ where: { login: req.body.login } });
@@ -103,7 +103,7 @@ exports.loginUser = async (req, res) => {
             res.status(200).json({
                 status: 'success',
                 message: 'Пользователь найден, доступ разрешен',
-                userData: { id: user.id, login: user.login, token },
+                token,
             });
         } else {
             return res.status(400).json({
@@ -114,7 +114,7 @@ exports.loginUser = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             status: 'error',
-            message: error.errors[0].message,
+            message: 'Что-то пошло не так',
         });
     }
 };

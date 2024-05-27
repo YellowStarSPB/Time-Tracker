@@ -1,12 +1,13 @@
 import { RefObject, useEffect, useRef, useState } from 'react';
 
-import styles from './LoginPage.module.scss';
-import Input from '../../shared/UIKit/Input/Input';
-import useInput from '../../shared/hooks/inputsHooks/useInput';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/store/store-hooks';
-import { fetchUser } from '../../app/store/auth/authSlice';
+import { handleAuth } from '../../features/auth/api/authApi';
 
+import Input from '../../shared/UIKit/Input/Input';
+import useInput from '../../shared/hooks/inputsHooks/useInput';
+
+import styles from './LoginPage.module.scss';
 
 function LoginPage() {
     const location = useLocation();
@@ -15,7 +16,7 @@ function LoginPage() {
     //откуда был редирект
     const fromPage = location.state?.from?.pathname || '/';
     //токен юзера
-    const token = useAppSelector((state) => state.auth.user.token);
+    const token = useAppSelector((state) => state.auth.token);
     //статус лоадера
     const isLoading = useAppSelector((state) => state.auth.isLoading);
     const { status, message } = useAppSelector((state) => state.auth);
@@ -54,7 +55,7 @@ function LoginPage() {
         визуализируем ошибку или валидность, если нажали на кнопку
         без взаимодействия с формой
         */
-        // handleShowMessage(false);
+        handleShowMessage(false);
         if (!login.isDirty || !password.isDirty) {
             login.onBlur();
             password.onBlur();
@@ -74,12 +75,12 @@ function LoginPage() {
             //если поля формы валидны - отправляем запрос
             if (isValidForm) {
                 dispatch(
-                    fetchUser({
+                    handleAuth({
                         endPoint: apiUrl,
-                        dataUser: JSON.stringify({
+                        dataUser: {
                             login: login.value,
                             password: password.value,
-                        }),
+                        },
                     }),
                 )
                     .then((res) => {

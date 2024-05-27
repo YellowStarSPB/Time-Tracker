@@ -8,8 +8,24 @@ import MyCards from '../widgets/MyCards/MyCards';
 import MyAccount from '../widgets/MyAccount/MyAccount';
 import ThemeButton from '../widgets/ThemeToggle/ThemeToggle';
 import Sidebar from '../widgets/Sidebar/Sidebar';
+import { useAppDispatch } from './store/store-hooks';
+import { useEffect } from 'react';
+import { setAuth } from '../features/auth/model/authSlice';
+
+const preloader = document.getElementById('curtain');
 
 function App() {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('user-token');
+
+        if (storedToken) {
+            dispatch(setAuth(storedToken));
+        }
+        preloader?.classList.add('loaded');
+    }, [dispatch]);
+
     return (
         <Routes>
             <Route
