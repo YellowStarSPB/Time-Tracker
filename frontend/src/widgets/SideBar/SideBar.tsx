@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import styles from './Sidebar.module.scss';
 import { useAppDispatch } from '../../app/store/store-hooks';
-import { totalLogOut } from '../../app/store/auth/authSlice';
+import { totalLogOut } from '../../features/auth/model/authSlice';
+
+import styles from './Sidebar.module.scss';
 
 const navMenu = [
     {

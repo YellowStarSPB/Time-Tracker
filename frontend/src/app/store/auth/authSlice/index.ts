@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppDispatch } from '../../store';
+
 
 type UserType = {
     id: number | null;
@@ -78,8 +78,13 @@ const authSlice = createSlice({
     name: '@@auth',
     initialState,
     reducers: {
-        logOut: () => {
-            return initialState;
+        logOut: (state) => {
+            state.user = {
+                id: null,
+                login: '',
+                token: '',
+            }
+            // return initialState;
         },
     },
     extraReducers: (builder) => {
@@ -113,10 +118,6 @@ const authSlice = createSlice({
 });
 
 export const { logOut } = authSlice.actions;
-//middleware для полного выхода из системы, с удалением из localStorage
-export const totalLogOut = () => (dispatch: AppDispatch) => {
-    localStorage.removeItem('user');
-    dispatch(logOut());
-};
+
 
 export default authSlice.reducer;
