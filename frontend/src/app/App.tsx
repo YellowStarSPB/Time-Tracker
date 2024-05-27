@@ -1,16 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
+import { useAppDispatch } from './store/store-hooks';
+import { useEffect } from 'react';
+import { setAuth } from '../features/auth/model/authSlice';
+//required hock
+import RequiredAuth from '../shared/hocs/RequiredAuth';
+//pages
 import LoginPage from '../pages/LoginPage/LoginPage';
 import HomePage from '../pages/HomePage/HomePage';
-
-import RequiredAuth from '../shared/hocs/RequiredAuth';
-
+//components
 import MyCards from '../widgets/MyCards/MyCards';
 import MyAccount from '../widgets/MyAccount/MyAccount';
 import ThemeButton from '../widgets/ThemeToggle/ThemeToggle';
 import Sidebar from '../widgets/Sidebar/Sidebar';
-import { useAppDispatch } from './store/store-hooks';
-import { useEffect } from 'react';
-import { setAuth } from '../features/auth/model/authSlice';
 
 const preloader = document.getElementById('curtain');
 
