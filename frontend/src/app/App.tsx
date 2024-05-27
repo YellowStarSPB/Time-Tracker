@@ -1,7 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { useAppDispatch } from './store/store-hooks';
 import { useEffect } from 'react';
-import { setAuth } from '../features/auth/model/authSlice';
 //required hock
 import RequiredAuth from '../shared/hocs/RequiredAuth';
 //pages
@@ -16,16 +14,10 @@ import Sidebar from '../widgets/Sidebar/Sidebar';
 const preloader = document.getElementById('curtain');
 
 function App() {
-    const dispatch = useAppDispatch();
-
+    //при первой отрисовке приложения, убираем шторку лоадера
     useEffect(() => {
-        const storedToken = localStorage.getItem('user-token');
-
-        if (storedToken) {
-            dispatch(setAuth(storedToken));
-        }
         preloader?.classList.add('loaded');
-    }, [dispatch]);
+    }, []);
 
     return (
         <Routes>

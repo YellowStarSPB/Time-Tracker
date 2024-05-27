@@ -3,7 +3,7 @@ const cors = require('cors');
 const db = require('./models');
 const { createUser, loginUser, getMe } = require('./controllers/usersControllers');
 const { checkAuth } = require('./utils/checkAuth');
-const { createPurchase, getPurchase } = require('./controllers/shopingListControllers');
+const { createPurchase, getPurchase } = require('./controllers/shoppingListControllers');
 
 const PORT = 4444;
 
@@ -26,8 +26,8 @@ app.get('/api/auth', checkAuth, getMe);
 app.post('/api/registration', createUser);
 app.post('/api/login', loginUser);
 //shoping list methods
-app.post('/api/purchase', createPurchase);
-app.get('/api/purchase', getPurchase);
+app.post('/api/purchase-list', checkAuth, createPurchase);
+app.get('/api/purchase-list', checkAuth, getPurchase);
 
 app.listen(PORT, (err) => {
     if (err) {

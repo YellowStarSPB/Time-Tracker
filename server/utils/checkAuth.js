@@ -4,22 +4,24 @@ const jwt = require('jsonwebtoken');
 exports.checkAuth = (req, res, next) => {
     //парсим токен, полученный при запросе и отрезаем слово Bearer, чтобы передать чистый токен
     const token = (req.headers.authorization || '').replace(/Bearer\s?/, '');
+    console.log(token, "TOKEN")
     //если токен есть
     if (token) {
         try {
+            console.log(jwt.verify(token, '@MoneY_api_v1_VerYSecreT@'))
             //расшифровываем токен по секрутному ключу
             const decoded = jwt.verify(token, '@MoneY_api_v1_VerYSecreT@');
             //добавляем в реквест доп ключ userId с айди юзера
-            req.userId = decoded.id;
+            req.userID = decoded.id;
             next();
         } catch (error) {
             return res.status(404).json({
-                message: 'Нет доступа 1',
+                message: 'Нет доступа',
             });
         }
     } else {
         return res.status(400).json({
-            message: 'Нет доступа 2',
+            message: 'Нет доступа',
         });
     }
 };

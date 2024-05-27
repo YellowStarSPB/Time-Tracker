@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { RequestData } from '../model/types';
+import { RequestData, ResponseData } from '../model/types';
 
-export const handleAuth = createAsyncThunk(
-    '@@login||registration',
+export const handleAuth = createAsyncThunk<ResponseData,RequestData,{ rejectValue: ResponseData } >(
+    '@@auth/login||registration',
     async ({ endPoint, dataUser }: RequestData, { rejectWithValue }) => {
         try {
             const res = await fetch(`http://localhost:4444/${endPoint}`, {
@@ -23,7 +23,11 @@ export const handleAuth = createAsyncThunk(
             }
             return dataJson;
         } catch (error) {
-            return rejectWithValue(error);
+            return rejectWithValue({
+                status: 'error',
+                message: 'Что-то пошло не так',
+                token: ''
+            });
         }
     },
 );
