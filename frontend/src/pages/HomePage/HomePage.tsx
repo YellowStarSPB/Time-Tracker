@@ -8,7 +8,7 @@ import Targets from '../../widgets/Targets/Targets';
 import styles from './HomePage.module.scss';
 
 function HomePage() {
-
+    console.log('rerender')
     return (
         <div className={`container ${styles.homePage}`}>
             <div className={styles.homePageTop}>

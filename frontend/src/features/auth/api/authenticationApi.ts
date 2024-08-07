@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RequestData, ResponseData } from '../model/types';
 
-export const handleAuth = createAsyncThunk<ResponseData,RequestData,{ rejectValue: ResponseData } >(
+export const handleAuthentication = createAsyncThunk<ResponseData,RequestData,{ rejectValue: ResponseData } >(
     '@@auth/login||registration',
     async ({ endPoint, dataUser }: RequestData, { rejectWithValue }) => {
         try {
@@ -17,7 +17,7 @@ export const handleAuth = createAsyncThunk<ResponseData,RequestData,{ rejectValu
             if (!res.ok) {
                 return rejectWithValue(dataJson);
             }
-            //перекидываем пользователя на главный экран приложения и записывам в хранилище данные
+            // //перекидываем пользователя на главный экран приложения и записывам в хранилище данные
             if (dataJson.status === 'success') {
                 localStorage.setItem('user-token', JSON.stringify(dataJson.token));
             }
@@ -26,7 +26,7 @@ export const handleAuth = createAsyncThunk<ResponseData,RequestData,{ rejectValu
             return rejectWithValue({
                 status: 'error',
                 message: 'Что-то пошло не так',
-                token: ''
+                token: '',
             });
         }
     },

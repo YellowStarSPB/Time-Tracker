@@ -1,7 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthState } from './types';
-import { handleAuth } from '../api/authApi';
+import { handleAuthentication } from '../api/authenticationApi';
 import { AppDispatch } from '../../../app/store/store';
+import { handleAuthorization } from '../api/authorizationApi';
 
 const initialState: AuthState = {
     isAuthenticated: false,
@@ -35,21 +36,38 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(handleAuth.fulfilled, (state, action) => {
+            .addCase(handleAuthentication.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.status = action.payload.status;
                 state.message = action.payload.message;
                 state.token = action.payload.token;
             })
-            .addCase(handleAuth.pending, (state) => {
+            .addCase(handleAuthentication.pending, (state) => {
                 state.isLoading = true;
                 state.message = '';
                 state.status = null;
             })
-            .addCase(handleAuth.rejected, (state, action) => {
+            .addCase(handleAuthentication.rejected, (state, action) => {
                 console.log(action.payload);
                 if (action.payload) {
                     state.isLoading = false;
+                    state.status = action.payload.status;
+                    state.message = action.payload.message;
+                    state.token = '';
+                }
+            });
+        builder
+            .addCase(handleAuthorization.fulfilled, (state, action) => {
+                state.isAuthenticated = true
+                state.token = action.payload.token;
+            })
+            .addCase(handleAuthorization.pending, (state) => {
+                state.isAuthenticated = false
+                // state.token = '';
+            })
+            .addCase(handleAuthorization.rejected, (state, action) => {
+                console.log(action.payload);
+                if (action.payload) {
                     state.status = action.payload.status;
                     state.message = action.payload.message;
                     state.token = '';

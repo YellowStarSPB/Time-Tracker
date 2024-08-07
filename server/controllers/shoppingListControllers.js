@@ -36,6 +36,7 @@ exports.createPurchase = async (req, res) => {
 };
 
 exports.getPurchase = async (req, res) => {
+    console.log(req.headers)
     try {
         const userID = req.userID;
 
