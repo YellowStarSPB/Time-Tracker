@@ -2,12 +2,13 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/store/store-hooks';
-import { handleAuth } from '../../features/auth/api/authApi';
+import { handleAuthentication } from '../../features/auth/api/authenticationApi';
 
 import Input from '../../shared/UIKit/Input/Input';
 import useInput from '../../shared/hooks/inputsHooks/useInput';
 
 import styles from './LoginPage.module.scss';
+const preloader = document.getElementById('curtain');
 
 function LoginPage() {
     const location = useLocation();
@@ -28,7 +29,9 @@ function LoginPage() {
     const [showMessage, setShowMessage] = useState<boolean>(false);
     //ссылка на ноду формы
     const formRef = useRef(null) as RefObject<HTMLFormElement> | null;
-
+    useEffect(() => {
+        preloader?.classList.add('loaded');
+    }, []);
     const login = useInput('', {
         minLength: 3,
         isEmpty: true,
@@ -75,7 +78,7 @@ function LoginPage() {
             //если поля формы валидны - отправляем запрос
             if (isValidForm) {
                 dispatch(
-                    handleAuth({
+                    handleAuthentication({
                         endPoint: apiUrl,
                         dataUser: {
                             login: login.value,
@@ -84,7 +87,7 @@ function LoginPage() {
                     }),
                 )
                     .then((res) => {
-                        if (res.type.includes('fullfiled')) {
+                        if (res.meta.requestStatus === 'fulfilled') {
                             navigate(fromPage, { replace: false });
                         }
                     })
@@ -101,12 +104,10 @@ function LoginPage() {
             setApiUrl('api/registration');
         }
     }, [isEntryForm]);
-
     //fallback if user set in url path /login
     if (token) {
         return <Navigate to={fromPage} />;
     }
-
     return (
         <div className={styles.loginPage}>
             <div className={styles.formWrapper}>

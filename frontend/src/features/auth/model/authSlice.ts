@@ -1,56 +1,78 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthState, ResponseData } from './types';
-import { handleAuth } from '../api/authApi';
+import { AuthState } from './types';
+import { handleAuthentication } from '../api/authenticationApi';
 import { AppDispatch } from '../../../app/store/store';
+import { handleAuthorization } from '../api/authorizationApi';
 
 const initialState: AuthState = {
     isAuthenticated: false,
-    token: '',
+    token: checkLocalToken(),
     status: null,
     message: '',
     isLoading: false,
 };
 
+function checkLocalToken() {
+    const storedToken = localStorage.getItem('user-token');
+    if (storedToken) {
+        return JSON.parse(storedToken);
+    } else {
+        return '';
+    }
+}
+
 const authSlice = createSlice({
     name: '@@auth',
     initialState,
     reducers: {
-        logOut: () => {
-            return initialState;
+        logOut: (state) => {
+            state.isAuthenticated = false;
+            state.token = '';
         },
         setAuth: (state, action: PayloadAction<string>) => {
             state.isAuthenticated = true;
-            state.token = action.payload;
+            state.token = JSON.parse(action.payload);
         },
     },
     extraReducers: (builder) => {
         builder
-            .addCase(
-                handleAuth.fulfilled,
-                (state, action: PayloadAction<ResponseData>) => {
+            .addCase(handleAuthentication.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.status = action.payload.status;
+                state.message = action.payload.message;
+                state.token = action.payload.token;
+            })
+            .addCase(handleAuthentication.pending, (state) => {
+                state.isLoading = true;
+                state.message = '';
+                state.status = null;
+            })
+            .addCase(handleAuthentication.rejected, (state, action) => {
+                console.log(action.payload);
+                if (action.payload) {
                     state.isLoading = false;
                     state.status = action.payload.status;
                     state.message = action.payload.message;
-                    state.token = action.payload.token;
-                },
-            )
-            .addMatcher(
-                (action) => action.type.endsWith('/pending'),
-                (state) => {
-                    state.isLoading = true;
-                    state.message = '';
-                    state.status = null;
-                },
-            )
-            .addMatcher(
-                (action) => action.type.endsWith('/rejected'),
-                (state, action: PayloadAction<ResponseData>) => {
-                    state.isLoading = false;
-                    state.status = action.payload.status || 'error';
+                    state.token = '';
+                }
+            });
+        builder
+            .addCase(handleAuthorization.fulfilled, (state, action) => {
+                state.isAuthenticated = true
+                state.token = action.payload.token;
+            })
+            .addCase(handleAuthorization.pending, (state) => {
+                state.isAuthenticated = false
+                // state.token = '';
+            })
+            .addCase(handleAuthorization.rejected, (state, action) => {
+                console.log(action.payload);
+                if (action.payload) {
+                    state.status = action.payload.status;
                     state.message = action.payload.message;
                     state.token = '';
-                },
-            );
+                }
+            });
     },
 });
 

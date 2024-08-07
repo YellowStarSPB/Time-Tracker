@@ -1,7 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
-import { useAppDispatch } from './store/store-hooks';
-import { useEffect } from 'react';
-import { setAuth } from '../features/auth/model/authSlice';
+import { Outlet, Route, Routes } from 'react-router-dom';
 //required hock
 import RequiredAuth from '../shared/hocs/RequiredAuth';
 //pages
@@ -13,50 +10,34 @@ import MyAccount from '../widgets/MyAccount/MyAccount';
 import ThemeButton from '../widgets/ThemeToggle/ThemeToggle';
 import Sidebar from '../widgets/Sidebar/Sidebar';
 
-const preloader = document.getElementById('curtain');
-
 function App() {
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem('user-token');
-
-        if (storedToken) {
-            dispatch(setAuth(storedToken));
-        }
-        preloader?.classList.add('loaded');
-    }, [dispatch]);
-
     return (
         <Routes>
-            <Route
-                path="/*"
-                element={
-                    <RequiredAuth>
-                        <Sidebar />
-                        <div className="content-side">
-                            <div className="header">
-                                <MyCards />
-                                <div className="header__right">
-                                    <ThemeButton />
-                                    <MyAccount />
-                                </div>
-                            </div>
-                            <Routes>
-                                <Route index element={<HomePage />} />
-                                <Route
-                                    path="last-entries"
-                                    element={<div>last-entries</div>}
-                                />
-                            </Routes>
-                        </div>
-                    </RequiredAuth>
-                }
-            />
-
+            <Route element={<RequiredAuth />}>
+                <Route path='/' element={<MainLayout />}>
+                    <Route index element={<HomePage />} />
+                    <Route path="last-entries" element={<div>last-entries</div>} />
+                </Route>
+            </Route>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="*" element={<div>404</div>} />
         </Routes>
     );
 }
 
 export default App;
+const MainLayout = () => (
+    <>
+        <Sidebar />
+        <div className="content-side">
+            <div className="header">
+                <MyCards />
+                <div className="header__right">
+                    <ThemeButton />
+                    <MyAccount />
+                </div>
+            </div>
+            <Outlet />
+        </div>
+    </>
+);

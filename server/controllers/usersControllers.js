@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 exports.createUser = async (req, res) => {
     try {
         //достаем данные
-        const { login, password } = await req.body;
+        const { login, password } = req.body;
 
         if (login && password) {
             //шифруем пароль
@@ -18,7 +18,7 @@ exports.createUser = async (req, res) => {
             const findUser = await Users.findOne({ where: { login: login } });
 
             if (findUser) {
-                return res.status(400).json({
+                return res.status(409).json({
                     status: 'error',
                     message: 'Пользователь с таким логином уже существует',
                 });
@@ -38,7 +38,8 @@ exports.createUser = async (req, res) => {
                         expiresIn: '30d',
                     },
                 );
-
+                user.token = token;
+                await user.save()
                 //отправляем данные на клиент
                 res.status(200).json({
                     status: 'success',
@@ -63,10 +64,10 @@ exports.createUser = async (req, res) => {
 //Login user
 exports.loginUser = async (req, res) => {
     const { login, password } = await req.body;
-    
+
     try {
         if (login && password) {
-            const user = await Users.findOne({ where: { login: req.body.login } });
+            const user = await Users.findOne({ where: { login: login } });
 
             if (!user) {
                 return res.status(404).json({
@@ -76,10 +77,10 @@ exports.loginUser = async (req, res) => {
             }
 
             //проверяем сходятся ли пароли присланные по запросу и тот, который есть в базе
-            const isValidPass = await bcrypt.compare(req.body.password, user.password);
+            const isValidPass = await bcrypt.compare(password, user.password);
 
             //проверяем сходятся ли логины присланные по запросу и тот, который есть в базе
-            const isValidLogin = user.login === req.body.login;
+            const isValidLogin = user.login === login;
 
             //Если пароль или логин неверный, возвращем 400 с сообщением
             if (!isValidPass || !isValidLogin) {
@@ -102,7 +103,7 @@ exports.loginUser = async (req, res) => {
 
             res.status(200).json({
                 status: 'success',
-                message: 'Пользователь найден, доступ разрешен',
+                message: 'Пользователь найден',
                 token,
             });
         } else {

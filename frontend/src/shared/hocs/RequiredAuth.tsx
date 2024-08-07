@@ -1,19 +1,46 @@
-import { ReactNode } from 'react';
-import { useAppSelector } from '../../app/store/store-hooks';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/store/store-hooks';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { selectToken } from '../../features/auth/model/selectors';
+import { handleAuthorization } from '../../features/auth/api/authorizationApi';
 
-type PropsWithChildren = { children: ReactNode };
+const preloader = document.getElementById('curtain');
 
-function RequiredAuth({ children }: PropsWithChildren) {
+function RequiredAuth() {
+    const dispatch = useAppDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
+
     const token = useAppSelector(selectToken);
+    const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
-    if (!token) {
-        return <Navigate to={'/login'} state={{ from: location }} />;
+    useEffect(() => {
+        if (!token) {
+            navigate('/login', { replace: false, state: { from: location } });
+            preloader?.classList.add('loaded');
+            return;
+        }
+        console.log(1)
+        if (!isAuthenticated) {
+            dispatch(
+                handleAuthorization({
+                    endPoint: 'api/authorization',
+                    token: token,
+                }),
+            ).then((res) => {
+                if (res.meta.requestStatus === 'fulfilled') {
+                    preloader?.classList.add('loaded');
+                } else if (res.meta.requestStatus === 'rejected') {
+                    navigate('/login', { replace: false,state: { from: location }});
+                    preloader?.classList.add('loaded');
+                }
+            });
+        }
+    }, [isAuthenticated]);
+
+    if (isAuthenticated) {
+        return <Outlet />;
     }
-
-    return children;
 }
 
 export default RequiredAuth;
